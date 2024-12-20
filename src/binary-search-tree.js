@@ -101,13 +101,13 @@ class BinarySearchTree {
         if (parentNode.left) {
           const max = findMax(parentNode.left);
           parentNode.data = max;
-          parentNode.left.data === max
+          isLeaf(parentNode.left)
             ? (parentNode.left = null)
             : removeItem(parentNode.left, max);
         } else if (parentNode.right) {
           const min = findMin(parentNode.right);
           parentNode.data = min;
-          parentNode.right.data === min
+          isLeaf(parentNode.right)
             ? (parentNode.right = null)
             : removeItem(parentNode.right, min);
         }
@@ -119,12 +119,13 @@ class BinarySearchTree {
     };
 
     const removeItem = (parentNode, data) => {
-      const node = findNode(parentNode, data)
-      if(isLeaf(node)){
-        removeLeaf(parentNode, data);
-      } else{
-        removeNotLeaf(parentNode, data);
-      }
+      const node = findNode(parentNode, data);
+      if (node)
+        if (isLeaf(node)) {
+          removeLeaf(parentNode, data);
+        } else {
+          removeNotLeaf(parentNode, data);
+        }
     }
 
     removeItem(this.rootNode, data);
